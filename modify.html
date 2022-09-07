@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <img
+      src="https://2v51os3b9nxc2hzicx4cpfpo-wpengine.netdna-ssl.com/wp-content/uploads/2018/04/YS-YSCFLogo.png"
+      alt="York Solutions"
+    />
+  </head>
+  <body style="background-color: lightblue">
+    <div>
+      <br />User ID: <input type="text" id="uid" /><br />
+      <br />First Name: <input type="text" id="fname" /><br />
+      <br />Last Name: <input type="text" id="lname" /><br />
+      <br />Birth Date: <input type="date" id="bday" /><br />
+      <br /><button id="press" onclick="verify()">Submit</button><br />
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+      // it might be bad practice to name variables the same name as our html id elements, but not sure...
+      function verify() {
+        const uid = document.getElementById("uid").value;
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const bday = document.getElementById("bday").value;
+
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}$/;
+        //this does a search for only the necessary characters needed in the html inputs
+
+        if (uid == "" || !uid.match(regex)) {
+          alert("Invaild User ID!");
+        }
+
+        if (fname == "") {
+          alert("Invalid first name!");
+        }
+        if (lname == "") {
+          alert("Invalid last name!");
+        }
+        if (bday == "") {
+          alert("Invalid birthday!");
+        }
+        /* if the input is empty or doesn't meet all the required characters, i.e, having a minimum 8-12 characters long; it will alert 
+        an invalid error */
+
+        const dayDifference = dateDiff(bday);
+
+        if (dayDifference < 365 * 18) {
+          output.innerHTML =
+            "you have been breathing for " +
+            dayDifference +
+            " days, and " +
+            "you are probably not old enough to take this class, sorry!";
+          return;
+        } else {
+          output.innerHTML =
+            fname +
+            " " +
+            lname +
+            " you have been breathing for " +
+            dayDifference +
+            " days! " +
+            " you're also old enough to take this class, congratulations!";
+        }
+
+        for (let i = 1; i <= 20; i++) {
+          let str = "";
+          str = str.padStart(i, "x");
+
+          // x will get spammed 20 times as long as it's not greater than 20
+          const xElement = document.createElement("p");
+
+          const xText = document.createTextNode(str);
+
+          xElement.appendChild(xText);
+
+          document.body.appendChild(xElement);
+          // This will sets up the groundwork for the 'x' text which will get iterated 20 times
+        }
+      }
+
+      function dateDiff() {
+        const birthDate = new Date(document.getElementById("bday").value);
+        const currentDate = new Date();
+        // calculating difference in time
+        const timeDiff = currentDate.getTime() - birthDate.getTime();
+        // calculating difference in days
+        const dayDifference = parseInt(timeDiff / (1000 * 3600 * 24));
+        // 1000 = miliseconds (1 second), 36000 = seconds (1 hour), 24 hours = day
+        return dayDifference;
+      }
+      // put your JavaScript code to read HTML inputs
+      // and validate inputs here using if statements
+      // and document.getElementById().innerHTML to display results
+      // write your JS functions here
+      // write your JS Loop For here to print the Xs
+      // use something like document.write(str.padStart(i,"x") + "<br>");
+    </script>
+    <style>
+      h2 {
+        text-align: center;
+      }
+    </style>
+
+    <h2 style="color: white">So this is the power of JavaScript...</h2>
+    <p style="text-align: center">
+      <img src="https://c.tenor.com/FDTbILRjn-oAAAAC/bmo-sad.gif" alt="BMO" />
+    </p>
+  </body>
+</html>
